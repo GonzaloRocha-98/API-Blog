@@ -1,6 +1,5 @@
 const express = require('express')
 const morgan = require('morgan');
-const swaggerUi = require('swagger-ui-express');
 const logger = require('../logger');
 const config = require('../../config');
 
@@ -11,8 +10,8 @@ class ExpressServer{
         this.app = express();
         this.port = config.port;
         this.basePath = config.api.prefix;
+        this.basePathPosts = `${config.api.prefix}/posts`;
         this._middlewares();
-        this._swaggerConfig();
         this._routes();
         this._notFound();
         this._errorHandler();
@@ -29,7 +28,7 @@ class ExpressServer{
             res.status(200).end();
         })     
 
-        this.app.use(`${this.basePath}/users`, require('../../routes/posts'));
+        this.app.use(this.basePathPosts, require('../../routes/posts'));
     }
 
     _notFound() {
