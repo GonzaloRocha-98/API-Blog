@@ -9,7 +9,7 @@ try {
     logger.info('Database connection has been established successfully.');
     require('../models/Category');
     require('../models/Post');
-    sequelize.sync({force: false});
+    sequelize.sync({force:false});
     console.log("All models were synchronized successfully.");
     const server = new ExpressServer();
     logger.info('Express loaded');

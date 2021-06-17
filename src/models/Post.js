@@ -27,6 +27,7 @@ Post.init( {
   }
 }, {
     sequelize,
+    createdAt: 'fechaDeCreacion',
     modelName: 'posts'
 });
 
