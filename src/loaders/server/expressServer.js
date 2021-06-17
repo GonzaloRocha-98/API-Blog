@@ -9,8 +9,8 @@ class ExpressServer{
     constructor(){
         this.app = express();
         this.port = config.port;
-        this.basePath = config.api.prefix;
         this.basePathPosts = `${config.api.prefix}/posts`;
+        this.basePathCategories = `${config.api.prefix}/categories`;
         this._middlewares();
         this._routes();
         this._notFound();
@@ -23,12 +23,12 @@ class ExpressServer{
     }
 
     _routes(){  
-
         this.app.head("/status", (req,res) => {
             res.status(200).end();
-        })     
+        });     
 
         this.app.use(this.basePathPosts, require('../../routes/posts'));
+        this.app.use(this.basePathCategories, require('../../routes/categories'));
     }
 
     _notFound() {
@@ -49,7 +49,8 @@ class ExpressServer{
             const body = {
                 error: {
                     code,
-                    message: err.message
+                    message: err.message,
+                    data: err.data
                 }
             }
             res.json(body);

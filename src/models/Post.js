@@ -19,10 +19,11 @@ Post.init( {
   },
   categoria:{
     type: DataTypes.INTEGER,
+    allowNull: false,
     references: {
         model: Category,
         key: 'id'
-    }
+    },
   }
 }, {
     sequelize,
